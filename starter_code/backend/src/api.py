@@ -4,8 +4,8 @@ from sqlalchemy import exc
 import json
 from flask_cors import CORS
 
-from .database.models import db_drop_and_create_all, setup_db, Drink
-from .auth.auth import AuthError, requires_auth
+from database.models import db_drop_and_create_all, setup_db, Drink
+from auth.auth import AuthError, requires_auth
 
 app = Flask(__name__)
 setup_db(app)
@@ -203,8 +203,7 @@ def not_found(error):
 def auth_error(error):
     return jsonify({
         "success": False,
-        "error": error.status_code,
-        "message": error.error['description']
+        "error": error.status_code
     }), error.status_code
 
 @app.errorhandler(400)
